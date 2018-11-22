@@ -13,7 +13,7 @@ __Note: This is currently pre-release__
 ## Installation
 You can install this using pip:
 ```commandline
-pip install xcomposite
+pip install recollection
 ```
 
 Alternatively you can get the source from:
