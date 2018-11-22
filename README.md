@@ -10,6 +10,15 @@ providing you have ownership of the classes which need historical state.
 
 __Note: This is currently pre-release__
 
+## Installation
+You can install this using pip:
+```commandline
+pip install xcomposite
+```
+
+Alternatively you can get the source from:
+https://github.com/mikemalinowski/recollection
+
 ## Recollection Inheritence (Inference)
 
 This example shows how to setup a class using inheritence to 

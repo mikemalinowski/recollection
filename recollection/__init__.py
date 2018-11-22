@@ -17,7 +17,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 """
-Memento is a state recalling system. It allows for state of objects
+Recollection is a state recalling system. It allows for state of objects
 to be snap-shotted exposing functionality to then 'rollback' to any
 previously stored state.
 
