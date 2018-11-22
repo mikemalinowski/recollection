@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='recollection',
-    version='0.9.0',
+    version='0.9.1',
     author='Mike Malinowski',
     author_email='mike@twisted.space',
     description='A python package exposing the memento design pattern',
