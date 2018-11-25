@@ -306,6 +306,14 @@ from recollection.examples.pins.demo import demo
 demo()
 ```
 
+### Renamer (Ui and Code)
+This demo shows how recollection can be used to store state of a functional
+object which is represented as a visual tool (utilising PySide2).
+```python
+from recollection.examples.renamer.demo import demo
+
+demo()
+```
 
 ## Testing and Stability
 

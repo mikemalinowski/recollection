@@ -51,6 +51,7 @@ class Memento(object):
         # -- Store the registered serialiser (if required)
         self._serialiser = None
         self._serialisation_identifier = None
+        self._always_serialise = False
 
     # --------------------------------------------------------------------------
     def register(self, getter, setter=None, label=None, copy_value=True):
@@ -214,7 +215,7 @@ class Memento(object):
             self._states.pop()
 
         # -- If we need to serialise, do so now
-        if serialise:
+        if serialise or self._always_serialise:
             self.serialise()
 
         # -- Add some debug output
@@ -298,7 +299,10 @@ class Memento(object):
         self._defer = False
 
     # --------------------------------------------------------------------------
-    def register_serialiser(self, serialiser, identifier):
+    def register_serialiser(self,
+                            serialiser,
+                            identifier,
+                            always_serialise=False):
         """
         This allows you to register the serialiser you want to utilise.
 
@@ -311,7 +315,11 @@ class Memento(object):
             the data in the expected way. You should read the documentation
             of the serialiser in question to find the specific expectations.
         :type identifier: str
-
+        
+        :param always_serialise: If true, this will always serialise regardless
+            of the argument given during the store call.
+        :type always_serialise: bool
+        
         :return: None
         """
         # -- Validate that the serialiser is indeed a serialiser!
@@ -328,11 +336,24 @@ class Memento(object):
         # -- user to call a serialisation process.
         self._serialiser = serialiser
         self._serialisation_identifier = identifier
+        self._always_serialise = always_serialise
 
         # -- Log the removal
         log.debug(
             'Serialiser Registered : %s' % serialiser.__class__.__name__,
         )
+
+    # --------------------------------------------------------------------------
+    def unregister_serialiser(self):
+        """
+        This will unregister the serialiser. If the serialiser was set to 
+        always serialise this option will be set back to False.
+        
+        :return: None 
+        """
+        self._serialiser = None
+        self._always_serialise = False
+        self._serialisation_identifier = ''
 
     # --------------------------------------------------------------------------
     def labels(self):
@@ -356,8 +377,8 @@ class Memento(object):
         but have them all store and restore in lock-step. This can be done
         by grouping recollection objects together. 
         
-        :param other: The recollection object you want to put into lock-step with 
-            this group.
+        :param other: The recollection object you want to put into lock-step  
+            with this group.
             NOTE: If the 'other' group is already in lock-step with a third
             group then all three groups will go into lock-step together.
         :type other: memento.Memento 
